@@ -9,18 +9,60 @@ use Doctrine\ORM\Mapping as ORM;
 class Contacto
 {
     #[ORM\Id]
+    /**
+
+     * @ORM\Id
+
+     * @ORM\GeneratedValue
+
+     * @ORM\Column(type="integer")
+
+     */
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    /**
+
+     * @ORM\Column(type="string", length=255)
+
+     * @Assert\NotBlank
+
+     * (message="El nombre es obligatorio")
+
+     */
     private ?string $nombre = null;
 
     #[ORM\Column(length: 15)]
+    /**
+
+     * @ORM\Column(type="string", length=15)
+
+     * @Assert\NotBlank
+
+     * (message="El teléfono es obligatorio")
+
+     */
     private ?string $telefono = null;
 
     #[ORM\Column(length: 255)]
+    /**
+
+     * @ORM\Column(type="string", length=255)
+
+     * @Assert\NotBlank()
+
+     * @Assert\Email
+
+     * (message="El email {{ value }} no es válido")
+
+     */
     private ?string $email = null;
+
+    #[ORM\ManyToOne]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Provincia $provincia = null;
 
     public function getId(): ?int
     {
@@ -59,6 +101,18 @@ class Contacto
     public function setEmail(string $email): self
     {
         $this->email = $email;
+
+        return $this;
+    }
+
+    public function getProvincia(): ?Provincia
+    {
+        return $this->provincia;
+    }
+
+    public function setProvincia(?Provincia $provincia): self
+    {
+        $this->provincia = $provincia;
 
         return $this;
     }
