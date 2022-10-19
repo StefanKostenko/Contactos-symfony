@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+{% block title %} Contactos {% endblock %}
+{% block body %}
+
+    <h1>Ficha del provincias</h1>
+    {% if provincias %}
+        {% for provincia in provincias %}
+            <p>{{ provincia.nombre }}<input type="button" onclick="location.href='/provincia/delete/{{ provincia.id }}'" value='Eliminar'></p>
+        {% endfor %}
+    {% else %}
+        <p>No se ha encontrado provincias</p>
+    {% endif %}
+
+{% endblock %}
